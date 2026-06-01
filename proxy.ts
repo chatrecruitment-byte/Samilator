@@ -35,27 +35,8 @@ export async function proxy(req: NextRequest) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
-  if (session && isAdminPage) {
-    const { data: user } = await supabase
-      .from('users')
-      .select('role')
-      .eq('id', session.user.id)
-      .single()
-
-    if (user?.role !== 'admin') {
-      return NextResponse.redirect(new URL('/dashboard', req.url))
-    }
-  }
-
   if (session && isLoginPage) {
-    const { data: user } = await supabase
-      .from('users')
-      .select('role')
-      .eq('id', session.user.id)
-      .single()
-
-    const redirect = user?.role === 'admin' ? '/admin/users' : '/dashboard'
-    return NextResponse.redirect(new URL(redirect, req.url))
+    return NextResponse.redirect(new URL('/dashboard', req.url))
   }
 
   return res

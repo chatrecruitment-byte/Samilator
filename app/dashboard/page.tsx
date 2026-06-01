@@ -16,11 +16,23 @@ export default function DashboardPage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return router.push('/login')
 
+      // Check role from metadata first (fast), fallback to DB
+      const metaRole = user.user_metadata?.role
+      if (metaRole === 'admin') {
+        router.push('/admin/users')
+        return
+      }
+
       const { data: profile } = await supabase
         .from('users')
-        .select('name')
+        .select('name, role')
         .eq('id', user.id)
         .single()
+
+      if (profile?.role === 'admin') {
+        router.push('/admin/users')
+        return
+      }
 
       const { data: assignment } = await supabase
         .from('skill_assignments')
