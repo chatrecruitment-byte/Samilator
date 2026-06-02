@@ -81,7 +81,11 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="bg-bg-card border border-bg-hover rounded-2xl p-6 mb-6">
-            <p className="text-text-muted">לא הוקצה לך סקיל עדיין. פנה למנהל.</p>
+            <p className="text-text-muted mb-4">לא הוקצה לך סקיל עדיין.</p>
+            <button onClick={() => router.push('/chat/demo')}
+              className="w-full bg-bg-hover border border-bg-hover text-text-secondary font-semibold py-3 rounded-xl hover:bg-bg-secondary transition-colors">
+              👁️ שיחת דמו — תצוגה בלבד
+            </button>
           </div>
         )}
 
