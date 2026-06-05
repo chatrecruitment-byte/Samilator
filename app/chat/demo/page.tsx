@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PRODUCTS } from '@/lib/products'
 import { ChatMessage } from '@/types'
+import SkillNotesMock from '@/components/chat/SkillNotesMock'
 
 const DEMO_REPLIES = [
   'היי! מה שלומך? 😊',
@@ -167,16 +168,23 @@ export default function DemoChatPage() {
         </div>
 
         {/* Products panel */}
-        <div className="w-44 bg-bg-secondary border-r border-bg-hover overflow-y-auto p-3 flex flex-col gap-2">
-          <p className="text-text-secondary text-xs font-medium mb-1 text-center">מוצרים</p>
-          {PRODUCTS.map(product => (
-            <button key={product.id} onClick={() => sendProduct(product.id)} disabled={isTyping}
-              className="bg-bg-card hover:bg-bg-hover border border-bg-hover rounded-xl p-2 text-right transition-colors disabled:opacity-50">
-              <div className="w-full h-12 bg-bg-hover rounded-lg mb-1.5 flex items-center justify-center text-text-muted text-xs">📷</div>
-              <p className="text-text-primary text-xs font-medium leading-tight">{product.name}</p>
-              <p className="text-accent-green text-xs">₪{product.price}</p>
-            </button>
-          ))}
+        <div className="w-40 bg-bg-secondary border-r border-bg-hover overflow-y-auto flex flex-col shrink-0">
+          <p className="text-text-muted text-xs font-medium text-center py-2 border-b border-bg-hover">מוצרים</p>
+          <div className="flex flex-col gap-1.5 p-2">
+            {PRODUCTS.map(product => (
+              <button key={product.id} onClick={() => sendProduct(product.id)} disabled={isTyping}
+                className="bg-bg-card hover:bg-bg-hover border border-bg-hover rounded-xl p-2 text-right transition-colors disabled:opacity-50 w-full">
+                <div className="w-full h-10 bg-bg-hover rounded-lg mb-1 flex items-center justify-center text-text-muted text-xs">📷</div>
+                <p className="text-text-primary text-xs font-medium leading-tight truncate">{product.name}</p>
+                <p className="text-accent-green text-xs font-bold">₪{product.price}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Notes panel */}
+        <div className="w-64 bg-bg-secondary border-r border-bg-hover flex flex-col shrink-0 overflow-hidden">
+          <SkillNotesMock />
         </div>
       </div>
 
