@@ -89,6 +89,14 @@ export default function DashboardPage() {
           </div>
         )}
 
+        <div className="bg-bg-card border border-bg-hover rounded-2xl p-4 mb-4">
+          <p className="text-text-secondary text-sm mb-3 text-center">רוצה להתאמן?</p>
+          <button onClick={() => router.push('/training')}
+            className="w-full bg-bg-hover border border-accent-purple/30 text-accent-purple font-semibold py-3 rounded-xl hover:bg-accent-purple/10 transition-colors">
+            🎓 כנס לאימון מקצועי
+          </button>
+        </div>
+
         <button onClick={handleLogout} className="text-text-muted hover:text-text-secondary text-sm transition-colors">
           התנתק
         </button>
