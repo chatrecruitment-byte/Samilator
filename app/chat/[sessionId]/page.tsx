@@ -165,9 +165,9 @@ export default function ChatPage() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Silence bar */}
-          <div className="h-0.5 bg-bg-hover shrink-0">
-            <div className="h-full bg-accent-red transition-all duration-500" style={{ width: `${silenceProgress}%` }} />
+          {/* Silence bar — hidden visually, logic still runs */}
+          <div className="h-0 overflow-hidden">
+            <div style={{ width: `${silenceProgress}%` }} />
           </div>
 
           {/* Input */}
