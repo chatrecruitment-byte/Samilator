@@ -127,9 +127,9 @@ export default function ChatPage() {
         <button onClick={() => setShowEndModal(true)} className="text-text-muted hover:text-accent-red text-sm transition-colors">סיים</button>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-row-reverse flex-1 overflow-hidden">
 
-        {/* RIGHT — Notes (first in DOM = right in RTL) */}
+        {/* RIGHT — Notes */}
         <div className="w-64 bg-bg-secondary border-l border-bg-hover flex flex-col shrink-0 overflow-hidden">
           {skillId && <SkillNotes skillId={skillId} />}
         </div>
