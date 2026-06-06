@@ -7,6 +7,7 @@ import { PRODUCTS } from '@/lib/products'
 import { ChatMessage } from '@/types'
 import { createClient } from '@/lib/supabase'
 import SkillNotes from '@/components/chat/SkillNotes'
+import ProductsPopup from '@/components/chat/ProductsPopup'
 
 export default function ChatPage() {
   const router = useRouter()
@@ -177,28 +178,7 @@ export default function ChatPage() {
 
           {/* Input */}
           <div className="relative p-3 bg-bg-secondary border-t border-bg-hover shrink-0">
-            <AnimatePresence>
-              {showProducts && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
-                  className="absolute bottom-full left-3 right-3 mb-2 bg-bg-card border border-bg-hover rounded-2xl p-3 shadow-2xl z-10">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-text-primary font-semibold text-sm">שלח מוצר</span>
-                    <button onClick={() => setShowProducts(false)} className="text-text-muted hover:text-text-primary text-lg leading-none">×</button>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2 max-h-64 overflow-y-auto">
-                    {PRODUCTS.map(product => (
-                      <button key={product.id} onClick={() => sendProduct(product.id)} disabled={isTyping}
-                        className="bg-bg-secondary hover:bg-bg-hover border border-bg-hover rounded-xl p-2 text-right transition-colors disabled:opacity-50">
-                        <div className="w-full h-12 bg-bg-hover rounded-lg mb-1.5 flex items-center justify-center text-lg">📷</div>
-                        <p className="text-text-primary text-xs font-medium leading-tight">{product.name}</p>
-                        <p className="text-accent-green text-xs font-bold">₪{product.price}</p>
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <ProductsPopup open={showProducts} onClose={() => setShowProducts(false)} onSelect={sendProduct} disabled={isTyping} />
 
             <div className="flex gap-2">
               <button onClick={() => setShowProducts(!showProducts)}

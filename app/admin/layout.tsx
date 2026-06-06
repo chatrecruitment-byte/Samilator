@@ -7,6 +7,7 @@ const NAV = [
   { href: '/admin/users', label: '👥 מתלמדים' },
   { href: '/admin/skills', label: '🤖 סקילים' },
   { href: '/admin/reports', label: '📊 דוחות' },
+  { href: '/admin/products', label: '🖼️ מוצרים' },
   { href: '/admin/settings', label: '⚙️ הגדרות' },
 ]
 
