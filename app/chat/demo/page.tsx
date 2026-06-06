@@ -109,6 +109,11 @@ export default function DemoChatPage() {
 
       <div className="flex flex-1 overflow-hidden">
 
+        {/* RIGHT — Notes (first in DOM = right in RTL) */}
+        <div className="w-64 bg-bg-secondary border-l border-bg-hover flex flex-col shrink-0 overflow-hidden">
+          <SkillNotesMock />
+        </div>
+
         {/* CENTER — Chat */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
@@ -198,10 +203,6 @@ export default function DemoChatPage() {
           </div>
         </div>
 
-        {/* RIGHT — Notes */}
-        <div className="w-64 bg-bg-secondary border-r border-bg-hover flex flex-col shrink-0 overflow-hidden">
-          <SkillNotesMock />
-        </div>
       </div>
 
       {/* End modal */}
