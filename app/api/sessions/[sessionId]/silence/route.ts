@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase-server'
-import { getOpenAIClient } from '@/lib/openai'
+import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/supabase-server'
+import OpenAI from 'openai'
+
+async function getOpenAI(): Promise<OpenAI> {
+  const supabase = createAdminSupabaseClient()
+  const { data } = await supabase.from('settings').select('value').eq('key', 'openai_api_key').single()
+  if (!data?.value) throw new Error('OpenAI API key not configured')
+  return new OpenAI({ apiKey: data.value })
+}
 
 export async function POST(_req: NextRequest, { params }: { params: Promise<{ sessionId: string }> }) {
   try {
@@ -20,23 +27,41 @@ export async function POST(_req: NextRequest, { params }: { params: Promise<{ se
 
     if (!session) return NextResponse.json({ error: 'Session not found' }, { status: 404 })
 
-    const openai = await getOpenAIClient()
-    const content = 'המתלמד שתק 60 שניות. אם אתה עדיין מעוניין בשיחה, שלח הודעה קצרה. אחרת — אל תשלח כלום.'
+    const adminSupabase = createAdminSupabaseClient()
+    const { data: skill } = await adminSupabase
+      .from('skills')
+      .select('system_prompt')
+      .eq('id', session.skill_id)
+      .single()
 
-    await openai.beta.threads.messages.create(session.thread_id, { role: 'user', content })
+    if (!skill) return NextResponse.json({ reply: null })
 
-    const run = await openai.beta.threads.runs.createAndPoll(
-      session.thread_id,
-      { assistant_id: session.skill_id },
-      { timeout: 30000 }
-    )
+    const { data: history } = await supabase
+      .from('session_messages')
+      .select('role, content')
+      .eq('session_id', sessionId)
+      .order('created_at', { ascending: true })
 
-    if (run.status !== 'completed') return NextResponse.json({ reply: null })
+    const silenceNote = 'המתלמד שתק 60 שניות. אם אתה עדיין מעוניין בשיחה, שלח הודעה קצרה. אחרת — אל תשלח כלום.'
 
-    const messages = await openai.beta.threads.messages.list(session.thread_id, { limit: 1, order: 'desc' })
-    const reply = messages.data[0]?.content[0]?.type === 'text'
-      ? messages.data[0].content[0].text.value
-      : null
+    const messages: OpenAI.ChatCompletionMessageParam[] = [
+      { role: 'system', content: skill.system_prompt },
+      ...(history || []).map(m => ({ role: m.role as 'user' | 'assistant', content: m.content })),
+      { role: 'user', content: silenceNote },
+    ]
+
+    const openai = await getOpenAI()
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages,
+      temperature: 0.9,
+    })
+
+    const reply = completion.choices[0]?.message?.content || null
+
+    if (reply) {
+      await supabase.from('session_messages').insert({ session_id: sessionId, role: 'assistant', content: reply })
+    }
 
     return NextResponse.json({ reply })
   } catch (error: unknown) {

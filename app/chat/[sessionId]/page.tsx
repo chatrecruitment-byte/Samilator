@@ -32,6 +32,18 @@ export default function ChatPage() {
       const { data: session } = await supabase.from('sessions').select('skill_name, skill_id').eq('id', sessionId).single()
       setSkillName(session?.skill_name || '')
       setSkillId(session?.skill_id || '')
+
+      // Load existing messages (e.g. opening message)
+      const { data: existingMessages } = await supabase
+        .from('session_messages')
+        .select('id, role, content')
+        .eq('session_id', sessionId)
+        .order('created_at', { ascending: true })
+
+      if (existingMessages && existingMessages.length > 0) {
+        setMessages(existingMessages.map(m => ({ id: m.id, role: m.role as 'user' | 'assistant', content: m.content })))
+      }
+
       const res = await fetch('/api/admin/settings')
       const data = await res.json()
       const timeout = data.settings?.find((s: { key: string; value: string }) => s.key === 'silence_timeout_seconds')?.value

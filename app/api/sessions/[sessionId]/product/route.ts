@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase-server'
-import { getOpenAIClient } from '@/lib/openai'
+import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/supabase-server'
 import { PRODUCTS } from '@/lib/products'
+import OpenAI from 'openai'
+
+async function getOpenAI(): Promise<OpenAI> {
+  const supabase = createAdminSupabaseClient()
+  const { data } = await supabase.from('settings').select('value').eq('key', 'openai_api_key').single()
+  if (!data?.value) throw new Error('OpenAI API key not configured')
+  return new OpenAI({ apiKey: data.value })
+}
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ sessionId: string }> }) {
   try {
@@ -27,23 +34,51 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ ses
 
     const content = `שלחתי לך הצעה: ${product.name} במחיר $${product.price}. רוצה לקנות?`
 
-    const openai = await getOpenAIClient()
-    await openai.beta.threads.messages.create(session.thread_id, { role: 'user', content })
+    // Save user message
+    await supabase.from('session_messages').insert({ session_id: sessionId, role: 'user', content })
 
-    const run = await openai.beta.threads.runs.createAndPoll(
-      session.thread_id,
-      { assistant_id: session.skill_id },
-      { timeout: 30000 }
-    )
+    // Get skill system prompt
+    const adminSupabase = createAdminSupabaseClient()
+    const { data: skill } = await adminSupabase
+      .from('skills')
+      .select('system_prompt')
+      .eq('id', session.skill_id)
+      .single()
 
-    if (run.status !== 'completed') {
-      return NextResponse.json({ error: `Run failed: ${run.status}` }, { status: 500 })
-    }
+    if (!skill) return NextResponse.json({ error: 'Skill not found' }, { status: 404 })
 
-    const messages = await openai.beta.threads.messages.list(session.thread_id, { limit: 1, order: 'desc' })
-    const rawReply = messages.data[0]?.content[0]?.type === 'text'
-      ? messages.data[0].content[0].text.value
-      : ''
+    // Get conversation history
+    const { data: history } = await supabase
+      .from('session_messages')
+      .select('role, content')
+      .eq('session_id', sessionId)
+      .order('created_at', { ascending: true })
+
+    const productList = PRODUCTS.map(p => `${p.id}: ${p.name} - $${p.price}`).join('\n')
+    const systemPrompt = `${skill.system_prompt}
+
+כאשר אתה מחליט לרכוש מוצר, כלול בהודעתך: PURCHASE:[מספר מוצר]
+כאשר אתה רוצה לסיים את השיחה ולעזוב, כלול: LEAVE
+
+רשימת מוצרים:
+${productList}`
+
+    const messages: OpenAI.ChatCompletionMessageParam[] = [
+      { role: 'system', content: systemPrompt },
+      ...(history || []).map(m => ({
+        role: m.role as 'user' | 'assistant',
+        content: m.content,
+      })),
+    ]
+
+    const openai = await getOpenAI()
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages,
+      temperature: 0.9,
+    })
+
+    const rawReply = completion.choices[0]?.message?.content || ''
 
     let reply = rawReply
     let purchase = null
@@ -64,6 +99,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ ses
       leave = true
       reply = reply.replace(/LEAVE/g, '').trim()
     }
+
+    // Save assistant reply
+    await supabase.from('session_messages').insert({ session_id: sessionId, role: 'assistant', content: reply })
 
     return NextResponse.json({ reply, purchase, leave })
   } catch (error: unknown) {

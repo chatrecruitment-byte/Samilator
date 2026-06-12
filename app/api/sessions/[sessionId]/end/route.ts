@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase-server'
-import { getOpenAIClient } from '@/lib/openai'
+import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/supabase-server'
 import { buildReportPrompt } from '@/lib/report-prompt'
+import OpenAI from 'openai'
+
+async function getOpenAI(): Promise<OpenAI> {
+  const supabase = createAdminSupabaseClient()
+  const { data } = await supabase.from('settings').select('value').eq('key', 'openai_api_key').single()
+  if (!data?.value) throw new Error('OpenAI API key not configured')
+  return new OpenAI({ apiKey: data.value })
+}
 
 export async function POST(_req: NextRequest, { params }: { params: Promise<{ sessionId: string }> }) {
   try {
@@ -26,20 +33,24 @@ export async function POST(_req: NextRequest, { params }: { params: Promise<{ se
       .update({ status: 'completed', ended_at: now.toISOString() })
       .eq('id', sessionId)
 
-    const openai = await getOpenAIClient()
-    const messages = await openai.beta.threads.messages.list(session.thread_id, { limit: 100 })
+    const { data: messages } = await supabase
+      .from('session_messages')
+      .select('role, content')
+      .eq('session_id', sessionId)
+      .order('created_at', { ascending: true })
+
     const { data: purchases } = await supabase.from('purchases').select('*').eq('session_id', sessionId)
 
     const startedAt = new Date(session.started_at)
     const durationMinutes = Math.round((now.getTime() - startedAt.getTime()) / 60000)
 
-    const transcript = messages.data
-      .reverse()
-      .map(m => `${m.role === 'user' ? 'מתלמד' : 'סקיל'}: ${m.content[0]?.type === 'text' ? m.content[0].text.value : ''}`)
+    const transcript = (messages || [])
+      .map(m => `${m.role === 'user' ? 'מתלמד' : 'סקיל'}: ${m.content}`)
       .join('\n')
 
     const prompt = buildReportPrompt(transcript, JSON.stringify(purchases || []), durationMinutes)
 
+    const openai = await getOpenAI()
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [{ role: 'user', content: prompt }],
