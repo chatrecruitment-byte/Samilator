@@ -342,6 +342,33 @@ const DEMO_QA = [
     keywords: ['חם', 'ללא הגבלה', 'כרטיס', 'ממשיך', 'לא עוצר', 'PPV'],
   },
 
+  // ========== מקורות טראפיק ==========
+  {
+    question: 'מנוי נכנס לדף ב-OnlyFans בזמן שהמודל עושה לייב ב-TikTok — הוא שואל "אבל את לא עכשיו בלייב?". מה עונים?',
+    answer: 'אחת משתי תשובות: 1) "oh babe, it\'s a pre-recorded one, this is why I can answer you — it\'s only me and you now ❤️" 2) "there\'s a huge delay on the stream, I\'m on my phone now giving you all my attention 😇" — המטרה: לשכנע אותו שיש לו תשומת לב מלאה ואישית, ולא שהוא מדבר עם צ\'אטר.',
+    keywords: ['pre-recorded', 'delay', 'לייב', 'tiktok', 'אישי', 'תשומת לב'],
+  },
+  {
+    question: 'למה TikTok Live הוא מקור הטראפיק החזק ביותר ומה הסיכון שלו לצ\'אטר?',
+    answer: 'TikTok Live הוא החזק ביותר כי המודל בלייב ~10 שעות ביום ומביאה אלפי צופים. הסיכון: המנוי יודע שהיא בלייב עכשיו ויתפלא איך היא עונה לו — עלול לחשוד שמדברים איתו. חייבים להסביר "pre-recorded" או "delay" כדי לשמור על האמינות.',
+    keywords: ['tiktok', '10 שעות', 'pre-recorded', 'delay', 'חזק', 'חשד'],
+  },
+  {
+    question: 'מנוי בא מ-YouTube (Dry vs Wet) — מה הוא רוצה ואיך ניגשים אליו?',
+    answer: 'מנוי מ-YouTube ראה תוכן Safe For Work בלבד — הוא נרשם כי רצה לראות את ההמשך עם נודיטי מלא. צריך לציין שיש קטגוריה מסודרת בכספת "Youtube DRY VS WET" ולהשתמש בה. למכור לו בדיוק את מה שהוא חיכה לראות — "the full version you\'ve been waiting for".',
+    keywords: ['youtube', 'dry vs wet', 'נודיטי', 'המשך', 'כספת', 'חיכה'],
+  },
+  {
+    question: 'מנוי בא מ-Instagram Reels — מה הוא מצפה לקבל ואיך ניגשים אליו?',
+    answer: 'מנוי מאינסטגרם ראה תוכן innocent ו-"girl next door" — הוא מצפה ל-Girlfriend Experience מלאה. צריך לתת לו GFE — לפנק, להקשיב, להתייחס אליו כחבר אישי. לא לזנק ישר למכירות. תחושת ה-GF היא מה שהביאה אותו.',
+    keywords: ['instagram', 'girl next door', 'GFE', 'girlfriend', 'innocent', 'אישי'],
+  },
+  {
+    question: 'למה חשוב לדעת מאיזה פלטפורמה המנוי הגיע לפני שמתחילים לדבר איתו?',
+    answer: 'כל פלטפורמה מביאה סוג אחר של מנוי עם ציפיות שונות: TikTok — חם ומיידי אבל חשדני לגבי הלייב. YouTube — רוצה תוכן ספציפי שלא ראה שם. Instagram — רוצה GFE רומנטי. בלי לדעת את המקור — אי אפשר לכוון את הגישה בצורה נכונה.',
+    keywords: ['פלטפורמה', 'מקור', 'ציפיות', 'tiktok', 'youtube', 'instagram'],
+  },
+
   // ========== Case Studies — המשך ==========
   {
     question: 'Case Study: מנוי מספר לך על חלום רטוב שלו בבוקר. מה עושים עם המידע הזה?',
