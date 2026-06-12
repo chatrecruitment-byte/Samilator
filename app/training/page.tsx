@@ -342,54 +342,54 @@ const DEMO_QA = [
     keywords: ['חם', 'ללא הגבלה', 'כרטיס', 'ממשיך', 'לא עוצר', 'PPV'],
   },
 
-  // ========== Case Studies — Donald (GFS ארוך טווח) ==========
+  // ========== Case Studies — המשך ==========
   {
-    question: 'Case Study Donald: מנוי מספר לך על חלום רטוב שלו בבוקר. מה עושים עם המידע הזה?',
+    question: 'Case Study: מנוי מספר לך על חלום רטוב שלו בבוקר. מה עושים עם המידע הזה?',
     answer: 'משתמשים במילים המדויקות שהוא אמר כדי לכתוב את תיאור ה-PPV. אם הוא אמר "you sat on my face" — תיאור ה-PPV יהיה "my pussy sitting on your face". המנוי מרגיש שה-PPV עשוי בדיוק בשבילו כי הוא מזהה את הפנטזיה שלו עצמו.',
     keywords: ['מילים', 'פנטזיה', 'חלום', 'PPV', 'מדויק', 'שלו'],
   },
   {
-    question: 'Case Study Donald: מנוי ותיק שקונה הרבה אמר "I have spent more money than I was supposed to". מה התגובה הנכונה?',
+    question: 'Case Study: מנוי ותיק שקונה הרבה אמר "I have spent more money than I was supposed to". מה התגובה הנכונה?',
     answer: 'מקבלים בחן ולא לוחצים — "No worries daddy, you can do it whenever you want it soon, just dropping it here again to remind you in case you want it and when you need it". אל תפחידו אותו ואל תתנצלו. קבלה חמה + תזכורת עדינה שה-PPV עדיין שם.',
     keywords: ['קבלה', 'לא לוחץ', 'תזכורת', 'no worries', 'עדין', 'חן'],
   },
   {
-    question: 'Case Study Donald: מנוי שלח וידאו של עצמו. איך הופכים את זה להזדמנות מכירה?',
+    question: 'Case Study: מנוי שלח וידאו של עצמו. איך הופכים את זה להזדמנות מכירה?',
     answer: 'מנצלים את הוידאו שלו להצעת custom — "next time I would like to see you put the camera below your cock so that I can imagine me kneeling in front of you". נותנים לו הנחיות ספציפיות, גורמים לו להשקיע, ובהמשך מציעים custom video בתגובה לתוכן שלו.',
     keywords: ['custom', 'וידאו', 'הנחיות', 'מצלמה', 'להשקיע', 'הצעה'],
   },
   {
-    question: 'Case Study Donald: מנוי שאל "do you have a wife or girlfriend?" — למה זו הזדמנות זהב?',
+    question: 'Case Study: מנוי שאל "do you have a wife or girlfriend?" — למה זו הזדמנות זהב?',
     answer: 'מנוי ששואל את זה רוצה בלעדיות ואינטימיות. עונים "no daddy, just making sure I do not want to share what is mine" — משחקים את ה"קנאות החמודה". זה גורם לו להרגיש שיש ביניהם קשר אישי ובלעדי, מה שמחזק רגשית ומגדיל הוצאות.',
     keywords: ['בלעדי', 'קנאות', 'שלי', 'קשר', 'אישי', 'אינטימיות'],
   },
   {
-    question: 'Case Study Donald: מה זה GFS ומה ההבדל בינו לבין שיחה רגילה?',
+    question: 'Case Study: מה זה GFS ומה ההבדל בינו לבין שיחה רגילה?',
     answer: 'GFS = Girlfriend Simulator. GFS ארוך טווח = שמירה על קשר יומי אמיתי: הודעת בוקר, הודעת לילה, שאלות על חיי היומיום שלו, זכירת פרטים אישיים ומעקב אחריהם. זה מה שגורם למנוי להיות emotionally dependent — הוא לא קונה פורנו, הוא "יוצא" עם המודל.',
     keywords: ['GFS', 'girlfriend', 'בוקר', 'לילה', 'יומי', 'תלות'],
   },
   {
-    question: 'Case Study Donald: איך מציעים custom video לאחר ראיפור עמוק?',
+    question: 'Case Study: איך מציעים custom video לאחר ראיפור עמוק?',
     answer: 'מחכים שהמנוי ישתף פנטזיה עמוקה או יאמר שיש לו morning wood — ואז: "Daddy, how about I make you a personalized video when I see your morning wood? What do you think of that idea?" הוא כבר חם, הרגש כבר קיים — הפנייה נחתת טבעית ובלי כפייה.',
     keywords: ['custom', 'פנטזיה', 'morning wood', 'personalized', 'טבעי', 'חם'],
   },
   {
-    question: 'Case Study Donald: מנוי על חופשה — איך שומרים על הקשר ומה שולחים?',
+    question: 'Case Study: מנוי על חופשה — איך שומרים על הקשר ומה שולחים?',
     answer: 'שואלים פרטים על החופשה — "last day in NY, right? What is your itinerary?" — ומראים עניין אמיתי בחיים שלו. שולחים תמונות/סקסטינג קל כדי שיחשוב עליה גם בזמן החופשה. מנוי שמקבל ניהול יחסים גם בזמן ריחוק נשאר מחובר ולא שוכח.',
     keywords: ['חופשה', 'שואל', 'עניין', 'ניהול', 'מחובר', 'פרטים'],
   },
   {
-    question: 'Case Study Donald: מנוי אמר "I didn\'t like it daddy" על תמונה שלחת. איך מגיבים?',
+    question: 'Case Study: מנוי אמר "I didn\'t like it daddy" על תמונה שלחת. איך מגיבים?',
     answer: 'לא נבהלים ולא מתנצלים מיד — שואלים "Why didn\'t you like it?" ומחכים לתשובה. לעתים זהו פלירט קלאסי ("I loveeeeed it!!!"). הגישה: להישאר רגועה ולתחקר — לא לפנות אחורה אוטומטית. זה גם בונה מתח ופלאייפולנס.',
     keywords: ['לא נבהל', 'שואל', 'למה', 'פלירט', 'רגוע', 'מתח'],
   },
   {
-    question: 'Case Study Donald: מנוי חדש נכנס לדף — מה ההודעה הראשונה שיש לשלוח?',
+    question: 'Case Study: מנוי חדש נכנס לדף — מה ההודעה הראשונה שיש לשלוח?',
     answer: '"Hey [name]! I just wanted to personally welcome you to my page" — הודעה אישית עם שמו, לא גנרית. לאחר מכן שואלים על הסוף שבוע שלו ומראים עניין בחייו. הכניסה האישית יוצרת תחושה שהמודל שמה לב אליו ספציפית — זה מה שמבדל ומייצר loyalty.',
     keywords: ['welcome', 'שם', 'אישי', 'לא גנרי', 'עניין', 'loyalty'],
   },
   {
-    question: 'Case Study Donald: מנוי שיתף שהוא מתעורר עם "morning wood" ולא מי שתטפל בו — מה עושים?',
+    question: 'Case Study: מנוי שיתף שהוא מתעורר עם "morning wood" ולא מי שתטפל בו — מה עושים?',
     answer: 'מגיבים בצורה אינטימית שמראה שהמודל רוצה להיות זו שמטפלת בו — "you made me smile with this message, I wonder how much more if you showed me that morning wood" — מגבירים את הציפייה ומכינים את הקרקע ל-PPV ול-custom.',
     keywords: ['morning wood', 'ציפייה', 'אינטימי', 'מגביר', 'custom', 'טפל'],
   },
